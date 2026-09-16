@@ -9,8 +9,30 @@ parser.add_argument('-l', '--length', required=True, type=int, help='enter the d
 
 args = parser.parse_args()
 
-def gen_id(length) -> string:
-    char = string.ascii_letters + string.digits
-    return ''.join(random.choices(char, k=length))
+def gen_link(length: int) -> str:
+    salt = string.ascii_letters + string.digits
+    alpha_numeric = ''.join(random.choices(salt, k=length))
+    return f'{alpha_numeric}'
 
-print(gen_id(args.length))
+x = True
+
+short_link = ''
+
+while x == True:
+    link = gen_link(args.length)
+
+    with open('data.txt', 'r') as file:
+        for line in file:
+            clean_line = line.strip()
+            stored_link = clean_line.split('-->')[1]
+
+            if stored_link == link:
+                break
+
+        else:
+            x = False
+            short_link = link
+
+
+with open('data.txt', 'a') as file:
+    file.write(f'{args.url} --> {short_link}\n')
