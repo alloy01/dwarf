@@ -9,30 +9,30 @@ parser.add_argument('-l', '--length', required=True, type=int, help='enter the d
 
 args = parser.parse_args()
 
-def gen_link(length: int) -> str:
+def gen_id(length: int) -> str:
     salt = string.ascii_letters + string.digits
     alpha_numeric = ''.join(random.choices(salt, k=length))
     return f'{alpha_numeric}'
 
-x = True
+duped_id = True
 
-short_link = ''
+short_id = ''
 
-while x == True:
-    link = gen_link(args.length)
+while duped_id == True:
+    proto_id = gen_id(args.length)
 
     with open('data.txt', 'r') as file:
         for line in file:
             clean_line = line.strip()
-            stored_link = clean_line.split('-->')[1]
+            stored_id = clean_line.split('-->')[1]
 
-            if stored_link == link:
+            if stored_id == proto_id:
                 break
 
         else:
-            x = False
-            short_link = link
+            duped_id = False
+            short_id = proto_id
 
 
 with open('data.txt', 'a') as file:
-    file.write(f'{args.url} --> {short_link}\n')
+    file.write(f'{args.url} --> {short_id}\n')
