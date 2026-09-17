@@ -16,6 +16,12 @@ def gen_id(length: int) -> str:
     alpha_numeric = ''.join(random.choices(salt, k=length))
     return alpha_numeric
 
+def load_data() -> dict:
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+
+        return data
+
 if args.method == 'shorten':
     duped_id = True
 
@@ -24,14 +30,13 @@ if args.method == 'shorten':
     while duped_id == True:
         proto_id = gen_id(args.length)
 
-        with open('data.json', 'r') as file:
-            data = json.load(file)
-            for line in data:
-                if line == proto_id:
-                    break
-            else:
-                duped_id = False
-                short_id = proto_id
+        data = load_data()
+        for line in data:
+            if line == proto_id:
+                break
+        else:
+            duped_id = False
+            short_id = proto_id
 
     data[short_id] = args.string
 
@@ -39,12 +44,11 @@ if args.method == 'shorten':
         json.dump(data, file, indent=4)
 
 elif args.method == 'fetch':
-    with open('data.json', 'r') as file:
-        data = json.load(file)
+    data = load_data()
 
-        resp = 'invalid short id'
-        for id in data:
-            if id == args.string:
-                resp = data[id]
+    resp = 'invalid short id'
+    for id in data:
+        if id == args.string:
+            resp = data[id]
 
-        print(resp)
+    print(resp)
