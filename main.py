@@ -1,20 +1,11 @@
 import string
 import random
-import argparse
 import json
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument('method', type=str, help='enter the method to be used shorten, fetch')
-parser.add_argument('-s', '--string', required=True, type=str, help='enter the url that needs to shortened or short_id of url')
-parser.add_argument('-l', '--length', type=int, help='enter the desired length of the shortened url')
-
-args = parser.parse_args()
 
 def gen_id(length: int) -> str:
     salt = string.ascii_letters + string.digits
-    alpha_numeric = ''.join(random.choices(salt, k=length))
-    return alpha_numeric
+    draft_id = ''.join(random.choices(salt, k=length))
+    return draft_id
 
 def load_data() -> dict:
     with open('data.json', 'r') as file:
@@ -22,33 +13,25 @@ def load_data() -> dict:
 
         return data
 
-if args.method == 'shorten':
+def shorten_link(link: str, length: int) -> str:
     duped_id = True
 
     short_id = ''
 
     while duped_id == True:
-        proto_id = gen_id(args.length)
+        draft_id = gen_id(length)
 
         data = load_data()
         for line in data:
-            if line == proto_id:
+            if line == draft_id:
                 break
         else:
             duped_id = False
-            short_id = proto_id
+            short_id = draft_id
 
-    data[short_id] = args.string
+    data[short_id] = link
 
     with open('data.json', 'w') as file:
         json.dump(data, file, indent=4)
 
-elif args.method == 'fetch':
-    data = load_data()
-
-    resp = 'invalid short id'
-    for id in data:
-        if id == args.string:
-            resp = data[id]
-
-    print(resp)
+    return short_id
