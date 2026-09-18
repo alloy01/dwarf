@@ -4,11 +4,11 @@ import json
 
 def gen_id(length: int) -> str:
     salt = string.ascii_letters + string.digits
-    draft_id = ''.join(random.choices(salt, k=length))
+    draft_id = "".join(random.choices(salt, k=length))
     return draft_id
 
 def load_data() -> dict:
-    with open('data.json', 'r') as file:
+    with open("data.json", "r") as file:
         data = json.load(file)
 
         return data
@@ -16,7 +16,7 @@ def load_data() -> dict:
 def shorten_link(link: str, length: int) -> str:
     duped_id = True
 
-    short_id = ''
+    short_id = ""
 
     while duped_id == True:
         draft_id = gen_id(length)
@@ -31,7 +31,18 @@ def shorten_link(link: str, length: int) -> str:
 
     data[short_id] = link
 
-    with open('data.json', 'w') as file:
+    with open("data.json", "w") as file:
         json.dump(data, file, indent=4)
 
     return short_id
+
+def fetch_link(short_id: str) -> str:
+    data = load_data()
+
+    for code in data:
+        if code == short_id:
+            response = data[short_id]
+            return response
+    else:
+        response = "No link found."
+        return response
