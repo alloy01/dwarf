@@ -41,8 +41,6 @@ def fetch_link(short_id: str) -> str:
 
     for code in data:
         if code == short_id:
-            response = data[short_id]
-            return response
+            return data[short_id]
     else:
-        response = "No link found."
-        return response
+        return "No link found."

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from main import shorten_link, fetch_link
 
-class shorten_request(BaseModel):
+class ShortenRequest(BaseModel):
     link: str
     length: int
 
@@ -14,7 +14,7 @@ def home():
     return response
 
 @app.post("/shorten")
-def shorten(request: shorten_request):
+def shorten(request: ShortenRequest):
     short_id = shorten_link(request.link, request.length)
 
     response = f"https://dwarf.com/{short_id}"
