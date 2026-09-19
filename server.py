@@ -1,12 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from main import shorten_link, fetch_link
+from database import connect_db
 
 class ShortenRequest(BaseModel):
     link: str
     length: int
 
 app = FastAPI()
+connect_db()
 
 @app.get("/")
 def home():
