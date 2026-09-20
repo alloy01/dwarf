@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from main import shorten_link
-from database import connect_db, load_data
+from main import shorten_url, fetch_url
+from database import connect_db
 
 class ShortenRequest(BaseModel):
     url: str
@@ -17,11 +17,11 @@ def home():
 
 @app.post("/shorten")
 def shorten(request: ShortenRequest):
-    short_id = shorten_link(request.url, request.length)
+    short_id = shorten_url(request.url, request.length)
 
     response = f"https://dwarf.com/{short_id}"
     return response
 
-@app.get("/load")
-def load():
-    return load_data()
+@app.get("/fetch/{short_id}")
+def load(short_id: str):
+    return fetch_url(short_id)

@@ -7,7 +7,7 @@ def gen_id(length: int) -> str:
     draft_id = "".join(random.choices(salt, k=length))
     return draft_id
 
-def shorten_link(url: str, length: int) -> str:
+def shorten_url(url: str, length: int) -> str:
     is_duped = True
 
     short_id = ""
@@ -27,3 +27,13 @@ def shorten_link(url: str, length: int) -> str:
     push_data(short_id, url)
 
     return draft_id
+
+def fetch_url(short_id: str):
+    data = load_data()
+    url = "invalid short id"
+
+    for i in range(len(data)):
+        if data[i][0] == short_id:
+            url = data[i][1]
+
+    return url
