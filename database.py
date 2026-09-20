@@ -8,8 +8,8 @@ def connect_db():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS code_link(
-            code text,
-            link text
+            short_id text,
+            url text
         )
     """)
 
@@ -18,16 +18,15 @@ def connect_db():
 
     print("connection intialized.")
 
-def push_data(code: str, url: str):
+def push_data(short_id: str, url: str):
     conn = sqlite3.connect("data.db")
 
     cursor = conn.cursor()
 
     cursor.execute("""
-        INSERT INTO code_link (code, link) VALUES(
+        INSERT INTO code_link (short_id, url) VALUES
             (?, ?)
-        )
-    """, (code, url))
+    """, (short_id, url))
 
     conn.commit()
     conn.close()
@@ -39,10 +38,10 @@ def load_data():
 
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM code_link")
-    print(cursor.fetchall)
+    cursor.execute("""
+        SELECT * FROM code_link
+    """)
 
-    conn.commit()
+    print(cursor.fetchall())
+
     conn.close()
-
-    print("data loaded.")
