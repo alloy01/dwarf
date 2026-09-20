@@ -24,4 +24,4 @@ def shorten(request: ShortenRequest):
 
 @app.get("/load")
 def load():
-    load_data()
+    return load_data()

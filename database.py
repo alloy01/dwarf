@@ -42,6 +42,8 @@ def load_data():
         SELECT * FROM code_link
     """)
 
-    print(cursor.fetchall())
+    data = cursor.fetchall()
 
     conn.close()
+
+    return data
