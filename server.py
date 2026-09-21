@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.responses import RedirectResponse
 from main import shorten_url, fetch_url
 from database import connect_db
 
@@ -24,4 +25,9 @@ def shorten(request: ShortenRequest):
 
 @app.get("/{short_id}")
 def load(short_id: str):
-    return fetch_url(short_id)
+    url = fetch_url(short_id)
+
+    if url == None:
+        raise HTTPException(status_code=404, detail="short url not found.")
+
+    return RedirectResponse(url, status_code=302)
