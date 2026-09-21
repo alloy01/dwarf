@@ -22,6 +22,6 @@ def shorten(request: ShortenRequest):
     response = f"https://dwarf.com/{short_id}"
     return response
 
-@app.get("/fetch/{short_id}")
+@app.get("/{short_id}")
 def load(short_id: str):
     return fetch_url(short_id)

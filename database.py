@@ -16,8 +16,6 @@ def connect_db():
     conn.commit()
     conn.close()
 
-    print("connection intialized.")
-
 def push_data(short_id: str, url: str):
     conn = sqlite3.connect("data.db")
 
@@ -30,8 +28,6 @@ def push_data(short_id: str, url: str):
 
     conn.commit()
     conn.close()
-
-    print("data pushed.")
 
 def load_data():
     conn = sqlite3.connect("data.db")
