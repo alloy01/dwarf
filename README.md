@@ -76,7 +76,7 @@ Fetches the original URL associated with a short ID.
 Example:
 
 ```text
-GET /fetch/aB72xKp
+GET /aB72xKp
 ```
 
 Response:
@@ -118,7 +118,7 @@ FastAPI
   │      ▼
   │   data.json
   │
-  └── /fetch/{short_id}
+  └── /{short_id}
          │
          ▼
       fetch_link()
