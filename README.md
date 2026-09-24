@@ -28,15 +28,7 @@ The core shortening and fetching functionality is currently implemented. The pro
 * Python
 * FastAPI
 * Pydantic
-* JSON
-
-### Frontend
-
-* React
-* Vite
-* Tailwind CSS
-* Axios
-* React Router
+* SQLite
 
 ### Development
 
@@ -69,14 +61,14 @@ Creates a shortened URL.
 https://dwarf.com/aB72xKp
 ```
 
-### `GET /fetch/{short_id}`
+### `GET /{short_id}`
 
 Fetches the original URL associated with a short ID.
 
 Example:
 
 ```text
-GET /fetch/aB72xKp
+GET /aB72xKp
 ```
 
 Response:
@@ -93,8 +85,9 @@ The backend currently follows a simple separation between the API layer and the 
 dwarf/
 ├── app.py
 ├── main.py
-├── data.json
-├── requirements.txt
+├── data.db
+├── server.py
+├── database.py
 └── README.md
 ```
 
@@ -116,25 +109,23 @@ FastAPI
   │   shorten_link()
   │      │
   │      ▼
-  │   data.json
+  │   data.db (SQLite)
   │
-  └── /fetch/{short_id}
+  └── /{short_id}
          │
          ▼
       fetch_link()
          │
          ▼
-      data.json
+      data.db (SQLite)
 ```
 
-A random alphanumeric ID is generated for each URL. The ID and original URL are then stored as a key-value pair in `data.json`.
+A random alphanumeric ID is generated for each URL. The ID and original URL are then stored as a key-value pair in `data.db`.
 
 ## Roadmap
 
 Dwarf is still being built. Planned improvements include:
 
-* [ ] SQLite storage
-* [ ] SQL-based persistence
 * [ ] PostgreSQL support
 * [ ] Actual URL redirection
 * [ ] Frontend integration
@@ -168,16 +159,10 @@ Activate it on Windows:
 .venv\Scripts\activate
 ```
 
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
 Run the FastAPI development server:
 
 ```bash
-uvicorn app:app --reload
+uvicorn server:app --reload
 ```
 
 The API will then be available locally.
