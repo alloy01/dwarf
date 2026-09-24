@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
-from main import shorten_url, fetch_url
-from database import connect_db
+from server.main import shorten_url, fetch_url
+from server.database import connect_db
 
 class ShortenRequest(BaseModel):
     url: str
