@@ -1,14 +1,28 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
-from server.main import shorten_url, fetch_url
-from server.database import connect_db
+from fastapi.middleware.cors import CORSMiddleware
+from main import shorten_url, fetch_url
+from database import connect_db
 
 class ShortenRequest(BaseModel):
     url: str
     length: int
 
+origins = [
+   "http://localhost:5173" 
+]
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins= origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 connect_db()
 
 @app.get("/")

@@ -1,6 +1,6 @@
 import string
 import random
-from server.database import push_data, load_data
+from database import push_data, load_data
 
 def gen_id(length: int) -> str:
     salt = string.ascii_letters + string.digits
