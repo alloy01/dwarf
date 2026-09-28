@@ -34,7 +34,7 @@ def home():
 def shorten(request: ShortenRequest):
     short_id = shorten_url(request.url, request.length)
 
-    response = f"http://localhost:5173/{short_id}"
+    response = f"http://localhost:8000/{short_id}"
     return response
 
 @app.get("/{short_id}")
@@ -45,3 +45,9 @@ def load(short_id: str):
         raise HTTPException(status_code=404, detail="short url not found.")
 
     return RedirectResponse(url, status_code=302)
+
+@app.get("/get-url/{short_id}")
+def find(short_id: str):
+    url = fetch_url(short_id)
+
+    return url
