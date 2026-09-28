@@ -23,8 +23,13 @@ const Home = () => {
     }
 
     const getUrl = async () => {
-        const response = await fetchUrl(codeRef.current.value);
-        console.log(response);
+        if(codeRef.current.value.trim() === "" || codeRef.current.value === null){
+            console.log("the entered code is not applicable");
+        }
+        else{
+            const response = await fetchUrl(codeRef.current.value);
+            console.log(response);
+        } 
     }
 
     return(
@@ -36,7 +41,8 @@ const Home = () => {
             <div>
                 <input ref={codeRef} type="text" placeholder="enter short_id" className="border border-slate-950 outline-0 px-4 py-1 font-semibold"/>
             </div>
-            <button className="border border-slate-950 py-1 font-semibold bg-green-600" onClick={postUrl}>shorten</button>        
+            <button className="border border-slate-950 py-1 font-semibold bg-green-600" onClick={postUrl}>shorten</button>       
+            <button className="border border-slate-950 py-1 font-semibold bg-green-600" onClick={getUrl}>fetch</button> 
         </div>
     )
 }
