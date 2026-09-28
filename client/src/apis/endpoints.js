@@ -4,4 +4,4 @@ export const shortenUrl = ( url, length ) => api.post("/shorten", {
     "url": url,
     "length": length
 });
-export const fetchUrl = () => api.get(`/${code}`);
+export const fetchUrl = ( code ) => api.get(`/get-url/${code}`);
