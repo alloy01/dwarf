@@ -7,18 +7,18 @@ const Home = () => {
     const lengthRef = useRef(null);
     
 
-    const postUrl = () => {
-        if(lengthRef.current.value < 1 || lengthRef.current.value > 99){
+    const postUrl = async () => {
+        if(lengthRef.current.value < 1 || lengthRef.current.value > 20){
             console.log("the entered length is not applicable");
         } 
         else if(urlRef.current.value === null || urlRef.current.value.trim() === ""){
             console.log("the entered url is not applicable");  
         }
         else{
-            shortenUrl(urlRef.current.value, lengthRef.current.value);
+            const response = await shortenUrl(urlRef.current.value, lengthRef.current.value);
             urlRef.current.value = "";
             lengthRef.current.value = "";
-            console.log("url shortened successfully");
+            console.log(`url shortened successfully, link: ${response.data}`);
         }
         
     }

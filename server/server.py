@@ -34,7 +34,7 @@ def home():
 def shorten(request: ShortenRequest):
     short_id = shorten_url(request.url, request.length)
 
-    response = f"https://dwarf.com/{short_id}"
+    response = f"http://localhost:5173/{short_id}"
     return response
 
 @app.get("/{short_id}")
