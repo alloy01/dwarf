@@ -28,7 +28,8 @@ const Home = () => {
         }
         else{
             const response = await fetchUrl(codeRef.current.value);
-            console.log(response);
+            console.log(response.data);
+            codeRef.current.value = "";
         } 
     }
 
