@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+    --color-obsidian-green: #0A0F0D;
+    --color-pine: #19241F;
+    --color-dark-sage: #293831;
+    --color-warm-white: #E8EEE9;
+    --color-jade: #55C99A;
+    --color-sage-gray: #9BAAA0;
+}

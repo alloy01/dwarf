@@ -1,4 +1,4 @@
-import { useActionState, useRef } from "react"
+import { useActionState, useRef, useState } from "react"
 import { fetchUrl, shortenUrl } from "../apis/endpoints.js";
 
 const Home = () => {
@@ -6,6 +6,16 @@ const Home = () => {
     const urlRef = useRef(null);
     const lengthRef = useRef(null);
     const codeRef = useRef(null);
+    const [tool, setTool] = useState("Shorten");
+
+    const handleTool = () => {
+        if(tool === "Shorten"){
+            setTool("Fetch");
+        }
+        else{
+            setTool("Shorten");
+        }
+    }
 
     const postUrl = async () => {
         if(lengthRef.current.value < 1 || lengthRef.current.value > 20){
@@ -34,16 +44,29 @@ const Home = () => {
     }
 
     return(
-        <div className="flex flex-col max-w-96 gap-10">
+        <div className="bg-obsidian-green min-h-screen px-28 py-12 flex flex-col items-center">
             <div>
-                <input ref={urlRef} type="text" placeholder="enter link" className="border border-slate-950 outline-0 px-4 py-1 font-semibold"/>
-                <input ref={lengthRef} type="number" placeholder="enter length" className="border border-slate-950 outline-0 px-4 py-1 font-semibold"/>
+                <p className="font-mono text-4xl font-bold text-warm-white">Dwarf - URL shortener</p>
             </div>
-            <div>
-                <input ref={codeRef} type="text" placeholder="enter short_id" className="border border-slate-950 outline-0 px-4 py-1 font-semibold"/>
+            <div className="flex gap-4 mt-20 items-center">
+                <p className="text-sage-gray font-mono text-xl">What you want to do?</p>
+                <button  className="bg-jade text-obsidian-green px-4 py-1.5 font-mono hover:bg-[#8BE8BD] duration-300" onClick={handleTool}>{tool}</button>
             </div>
-            <button className="border border-slate-950 py-1 font-semibold bg-green-600" onClick={postUrl}>shorten</button>       
-            <button className="border border-slate-950 py-1 font-semibold bg-green-600" onClick={getUrl}>fetch</button> 
+            <div className={`${tool === "Shorten" ? "block" : "hidden"} mt-10 flex flex-col gap-4`}>
+                <div className="flex flex-col gap-4 min-w-96">
+                    <input ref={urlRef} type="text" placeholder="enter link" className="bg-pine border w-full border-dark-sage text-warm-white outline-0 focus:border-jade/80 transition-all duration-300 px-4 py-1.5 font-mono"/>
+                    <input ref={lengthRef} type="number" placeholder="enter length" className="bg-pine border w-full border-dark-sage text-warm-white outline-0 focus:border-jade/80 transition-all duration-300 px-4 py-1.5 font-mono"/>
+                </div>
+                <div className="w-full flex justify-center">
+                    <button className="bg-[#111A16] border border-dark-sage text-warm-white hover:bg-pine hover:border-jade duration-300 px-4 py-1 font-mono" onClick={postUrl}>shorten</button>
+                </div>  
+            </div>
+            <div className={`${tool === "Shorten" ? "hidden" : "block"} mt-10 min-w-96 flex flex-col gap-4 items-center`}>
+                <input ref={codeRef} type="text" placeholder="enter short_id" className="bg-pine border border-dark-sage text-warm-white outline-0 focus:border-jade/80 transition-all duration-300 w-full px-4 py-1.5 font-mono"/>
+                <div>
+                    <button className="bg-[#111A16] border border-dark-sage text-warm-white hover:bg-pine hover:border-jade duration-300 px-4 py-1 font-mono" onClick={getUrl}>fetch</button>
+                </div>
+            </div>  
         </div>
     )
 }
