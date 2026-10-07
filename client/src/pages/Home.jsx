@@ -31,7 +31,7 @@ const Home = () => {
             const response = await shortenUrl(urlRef.current.value, lengthRef.current.value);
             urlRef.current.value = "";
             lengthRef.current.value = "";
-            console.log(`url shortened successfully, link: ${response.data}`);
+            showToast(`url shortened successfully, link: ${response.data}`);
         }
     }
 
@@ -41,7 +41,7 @@ const Home = () => {
         }
         else{
             const response = await fetchUrl(codeRef.current.value);
-            console.log(response.data);
+            showToast(response.data);
             codeRef.current.value = "";
         } 
     }
