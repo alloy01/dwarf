@@ -4,7 +4,6 @@ export const ToastContext = createContext();
 
 export const ToastProvider = ({ children }) => {
 
-    // initial toast
     const [toast, setToast] = useState({
             visible: false,
             message: ""
@@ -31,8 +30,7 @@ export const ToastProvider = ({ children }) => {
                 toastTimer.current = null;
             }, 3000);
         }
-    
-        // cleanup toast so we don't leave any stale component
+        
         useEffect(() => {
             return () => {
                 if(toastTimer.current){
