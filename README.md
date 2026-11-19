@@ -4,6 +4,8 @@
 
 Dwarf is an early-stage full-stack URL shortening project currently under active development.
 
+Live URL -> [demo](https://dwarf-landing.vercel.app)
+
 The project started as a simple Python CLI experiment using SQLite for persistence and is now being developed into a web application with a FastAPI backend and frontend.
 
 ## Status
